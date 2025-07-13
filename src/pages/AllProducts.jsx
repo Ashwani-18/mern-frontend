@@ -3,6 +3,7 @@ import api from "../utils/api";
 import Layout from "../components/layout/Layout";
 import { useAuth } from "../context/auth";
 import { toast } from "react-toastify";
+import { getProductImageUrl } from "../utils/imageUrl";
 
 function AllProducts() {
   const [products, setProducts] = useState([]);
@@ -58,7 +59,7 @@ function AllProducts() {
               >
                 <div className="w-full h-48 bg-gray-100 flex items-center justify-center overflow-hidden">
                   <img
-                    src={`/api/v1/product/product-photo/${p._id}`}
+                    src={getProductImageUrl(p._id)}
                     alt={p.name}
                     className="object-contain h-full w-full"
                     onError={(e) => {

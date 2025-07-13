@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../utils/api";
 import Layout from "../components/layout/Layout";
+import { getProductImageUrl } from "../utils/imageUrl";
 
 const ProductDetails = () => {
     const Params = useParams()
@@ -27,7 +28,7 @@ const ProductDetails = () => {
         {product ? (
           <div className="flex flex-col md:flex-row gap-4">
             <img
-              src={`/api/v1/product/product-photo/${product._id}`}
+              src={getProductImageUrl(product._id)}
               alt={product.name}
               className="w-full md:w-1/2 rounded-lg"
             />

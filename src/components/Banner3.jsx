@@ -3,6 +3,7 @@ import api from "../utils/api";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../context/auth";
+import { getProductImageUrl } from "../utils/imageUrl";
 
 const TopProducts = () => {
   const [products, setProducts] = useState([]);
@@ -51,7 +52,7 @@ const TopProducts = () => {
               className="bg-white border rounded shadow p-3 flex flex-col items-center"
             >
               <img
-                src={`/api/v1/product/product-photo/${p._id}`}
+                src={getProductImageUrl(p._id)}
                 alt={p.name}
                 className="w-full h-32 object-cover rounded mb-2"
               />

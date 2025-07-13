@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useAuth } from "../context/auth";
 import { useCart } from "../context/cart";
 import api from "../utils/api";
+import { getProductImageUrl } from "../utils/imageUrl";
 
 const Search = () => {
   const [values] = useSearch();
@@ -57,7 +58,7 @@ const Search = () => {
               className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105"
             >
               <img
-                src={`/api/v1/product/product-photo/${p._id}`}
+                src={getProductImageUrl(p._id)}
                 alt={p.name}
                 className="w-full h-48 object-cover"
               />

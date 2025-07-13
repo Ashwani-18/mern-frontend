@@ -3,6 +3,7 @@ import Layout from '../components/layout/Layout';
 import api from '../utils/api';
 import { useAuth } from '../context/auth';
 import { toast } from 'react-toastify';
+import { getProductImageUrl } from '../utils/imageUrl';
 
 const Cart = () => {
   const [auth] = useAuth();
@@ -143,7 +144,7 @@ const Cart = () => {
               <div key={item._id} className="flex justify-between items-center border-b py-4">
                 <div className="flex items-center gap-4">
                   <img
-                    src={`/api/v1/product/product-photo/${item.product._id}`}
+                    src={getProductImageUrl(item.product._id)}
                     alt={item.product.name}
                     className="w-16 h-16 object-contain border rounded"
                   />

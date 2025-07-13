@@ -1,9 +1,10 @@
-import axios from 'axios';
+import api from '../../utils/api';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Layout from '../../components/layout/Layout';
 import AdminMenu from '../../components/AdminMenu';
 import { Link } from 'react-router-dom';
+import { getProductImageUrl } from '../../utils/imageUrl';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -11,7 +12,7 @@ const Products = () => {
 
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get("/api/v1/product/get-products");
+      const { data } = await api.get("/api/v1/product/get-products");
       setProducts(data.products);
     } catch (error) {
       toast.error("Unable to fetch products");
@@ -44,7 +45,7 @@ const Products = () => {
                   {p.photo && (
                     <div className="w-full h-48 bg-gray-100 flex items-center justify-center overflow-hidden">
                       <img
-                        src={`/api/v1/product/product-photo/${p._id}`}
+                        src={getProductImageUrl(p._id)}
                         alt={p.name}
                         className="object-contain h-full w-full transition-transform duration-200 group-hover:scale-105"
                         onError={(e) => {

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import Layout from '../../components/layout/Layout';
 import { useAuth } from '../../context/auth';
+import { getProductImageUrl } from '../../utils/imageUrl';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -9,9 +10,7 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
-      const { data } = await axios.get("/api/v1/order/my-orders", {
-        headers: { Authorization: `Bearer ${auth.token}` },
-      });
+      const { data } = await api.get("/api/v1/order/my-orders");
       if (data.success) {
         setOrders(data.orders);
       }
@@ -27,9 +26,7 @@ const Orders = () => {
   const handleCancelOrder = async (orderId) => {
     if (!window.confirm('Are you sure you want to cancel this order?')) return;
     try {
-      const { data } = await axios.patch(`/api/v1/order/cancel/${orderId}`, {}, {
-        headers: { Authorization: `Bearer ${auth.token}` },
-      });
+      const { data } = await api.patch(`/api/v1/order/cancel/${orderId}`, {});
       if (data.success) {
         setOrders((prev) => prev.map(order => order._id === orderId ? { ...order, status: 'cancelled' } : order));
       } else {
@@ -75,7 +72,7 @@ const Orders = () => {
                     <li key={p.product?._id || idx} className="flex items-center gap-2 mb-2">
                       {p.product?._id && (
                         <img
-                          src={`/api/v1/product/product-photo/${p.product._id}`}
+                          src={getProductImageUrl(p.product._id)}
                           alt={p.product?.name}
                           className="w-12 h-12 object-cover rounded"
                           onError={e => { e.target.onerror = null; e.target.src = '/default-image.jpg'; }}

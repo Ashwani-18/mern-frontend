@@ -4,6 +4,7 @@ import api from "../utils/api";
 import Layout from "../components/layout/Layout";
 import { useAuth } from "../context/auth";
 import { toast } from "react-toastify";
+import { getProductImageUrl } from "../utils/imageUrl";
 
 const CategoryProducts = () => {
   const { cid } = useParams();
@@ -53,7 +54,7 @@ const CategoryProducts = () => {
               <p className="text-sm text-gray-600">{p.description?.slice(0, 60)}...</p>
               <p className="text-green-600 font-bold">₹{p.price}</p>
               <img
-                src={`/api/v1/product/product-photo/${p._id}`}
+                src={getProductImageUrl(p._id)}
                 alt={p.name}
                 className="w-full h-40 object-contain mt-2"
               />

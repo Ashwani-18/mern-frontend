@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../../components/layout/Layout';
 import AdminMenu from '../../components/AdminMenu';
-import axios from 'axios';
+import api from '../../utils/api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/auth';
+import { getProductImageUrl } from '../../utils/imageUrl';
 
 function UpdateProduct() {
   const [categories, setCategories] = useState([]);
@@ -24,7 +25,7 @@ function UpdateProduct() {
   // ✅ Fetch single product
   const getSingleProduct = async () => {
     try {
-      const { data } = await axios.get(`/api/v1/product/get-products/${params.slug}`);
+      const { data } = await api.get(`/api/v1/product/get-products/${params.slug}`);
       const p = data.product;
       setProductId(p._id);
       setName(p.name);
@@ -46,7 +47,7 @@ function UpdateProduct() {
   // ✅ Fetch all categories
   const getAllCategories = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-category");
+      const { data } = await api.get("/api/v1/category/get-category");
       if (data?.success) {
         setCategories(data.category);
       }
@@ -79,13 +80,12 @@ function UpdateProduct() {
       productData.append("category", category);
       if (photo) productData.append("photo", photo);
 
-      const { data } = await axios.put(
+      const { data } = await api.put(
         `/api/v1/product/update-product/${productId}`,
         productData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${auth.token}`,
           },
         }
       );
@@ -210,7 +210,7 @@ function UpdateProduct() {
               ) : productId && (
                 <div className="mt-2">
                   <img
-                    src={`/api/v1/product/product-photo/${productId}`}
+                    src={getProductImageUrl(productId)}
                     alt="Existing Product"
                     className="h-32 object-contain border rounded"
                     crossOrigin="anonymous"
