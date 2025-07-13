@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {toast } from 'react-toastify'
-import axios from 'axios'
+import api from '../utils/api'
 import {Navigate, useNavigate} from 'react-router-dom'
 import Layout from '../components/layout/Layout';
 
@@ -16,7 +16,7 @@ const navigate = useNavigate()
 const handleSubmit = async(e) => {
   e.preventDefault();
   try {
-    const res = await axios.post('/api/v1/auth/signup',{name, email, password, verifyPassword, answer});
+    const res = await api.post('/api/v1/auth/signup',{name, email, password, verifyPassword, answer});
     if(res.data.success){
       toast.success(res.data.message)
       navigate('/login')

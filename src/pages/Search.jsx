@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../context/auth";
 import { useCart } from "../context/cart";
-import axios from "axios";
+import api from "../utils/api";
 
 const Search = () => {
   const [values] = useSearch();
@@ -21,14 +21,9 @@ const Search = () => {
         return;
       }
 
-      const res = await axios.post(
+      const res = await api.post(
         "/api/v1/cart/add",
-        { productId },
-        {
-          headers: {
-            Authorization: `Bearer ${auth.token}`,
-          },
-        }
+        { productId }
       );
 
       if (res.data.success) {

@@ -5,7 +5,7 @@ const config = {
     razorpayKey: 'rzp_test_dummy'
   },
   production: {
-    apiUrl: process.env.REACT_APP_API_URL || 'https://ecommerce-backend-woad-iota.vercel.app',
+    apiUrl: process.env.REACT_APP_API_URL || 'https://mern-backend-4dux.onrender.com',
     razorpayKey: process.env.REACT_APP_RAZORPAY_KEY_ID || 'rzp_test_dummy'
   }
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import api from "../utils/api";
 import Layout from "../components/layout/Layout";
 import { useAuth } from "../context/auth";
 import { toast } from "react-toastify";
@@ -12,7 +12,7 @@ const CategoryProducts = () => {
 
   const fetchProducts = async () => {
     try {
-      const { data } = await axios.get(`/api/v1/product/category/${cid}/products`);
+      const { data } = await api.get(`/api/v1/product/category/${cid}/products`);
       if (data.success) {
         setProducts(data.products);
       }
@@ -23,10 +23,9 @@ const CategoryProducts = () => {
 
   const handleAddToCart = async (productId) => {
     try {
-      const { data } = await axios.post(
+      const { data } = await api.post(
         '/api/v1/cart/add',
-        { productId, quantity: 1 },
-        { headers: { Authorization: `Bearer ${auth?.token}` } }
+        { productId, quantity: 1 }
       );
       if (data.success) {
         toast.success('Added to cart!');

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/layout/Layout';
-import axios from 'axios';
+import api from '../utils/api';
 import { useAuth } from '../context/auth';
 import { toast } from 'react-toastify';
 
@@ -18,11 +18,7 @@ const Cart = () => {
 
   const fetchCart = async () => {
     try {
-      const { data } = await axios.get('/api/v1/cart/user-cart', {
-        headers: {
-          Authorization: `Bearer ${auth?.token}`,
-        },
-      });
+      const { data } = await api.get('/api/v1/cart/user-cart');
       if (data.success) {
         setCart(data.cart);
       }
@@ -34,11 +30,7 @@ const Cart = () => {
 
   const handleRemove = async (productId) => {
     try {
-      const { data } = await axios.delete(`/api/v1/cart/remove/${productId}`, {
-        headers: {
-          Authorization: `Bearer ${auth?.token}`,
-        },
-      });
+      const { data } = await api.delete(`/api/v1/cart/remove/${productId}`);
       if (data.success) {
         toast.success("Item removed");
         fetchCart();
@@ -53,14 +45,9 @@ const Cart = () => {
   const updateQuantity = async (productId, quantity) => {
     try {
       if (quantity < 1) return;
-      await axios.post(
+      await api.post(
         "/api/v1/cart/add",
-        { productId, quantity: 1 },
-        {
-          headers: {
-            Authorization: `Bearer ${auth.token}`,
-          },
-        }
+        { productId, quantity: 1 }
       );
       fetchCart();
     } catch (err) {
@@ -73,14 +60,9 @@ const Cart = () => {
       const item = cart.find(i => i.product._id === productId);
       if (!item || item.quantity <= 1) return;
 
-      await axios.post(
+      await api.post(
         '/api/v1/cart/update',
-        { productId, quantity: item.quantity - 1 },
-        {
-          headers: {
-            Authorization: `Bearer ${auth?.token}`,
-          },
-        }
+        { productId, quantity: item.quantity - 1 }
       );
       fetchCart();
     } catch (err) {
@@ -93,10 +75,9 @@ const Cart = () => {
   const handlePayment = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.post(
+      const { data } = await api.post(
         "/api/v1/payment/create-order",
-        { amount: total },
-        { headers: { Authorization: `Bearer ${auth?.token}` } }
+        { amount: total }
       );
 
       const options = {
@@ -108,7 +89,7 @@ const Cart = () => {
         order_id: data.order.id,
         handler: async function (response) {
           try {
-            const verifyRes = await axios.post(
+            const verifyRes = await api.post(
               "/api/v1/payment/verify",
               {
                 razorpay_order_id: response.razorpay_order_id,
@@ -116,8 +97,7 @@ const Cart = () => {
                 razorpay_signature: response.razorpay_signature,
                 amount: total,
                 address,
-              },
-              { headers: { Authorization: `Bearer ${auth?.token}` } }
+              }
             );
 
             if (verifyRes.data.success) {
