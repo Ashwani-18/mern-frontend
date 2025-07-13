@@ -73,7 +73,31 @@ const Cart = () => {
 
   const total = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
 
+  // Address validation function
+  const isAddressComplete = () => {
+    return (
+      address.street.trim() !== '' &&
+      address.city.trim() !== '' &&
+      address.state.trim() !== '' &&
+      address.zip.trim() !== '' &&
+      address.country.trim() !== ''
+    );
+  };
+
+  // Calculate address completion percentage
+  const getAddressCompletionPercentage = () => {
+    const fields = [address.street, address.city, address.state, address.zip, address.country];
+    const filledFields = fields.filter(field => field.trim() !== '').length;
+    return (filledFields / fields.length) * 100;
+  };
+
   const handlePayment = async () => {
+    // Validate address before proceeding
+    if (!isAddressComplete()) {
+      toast.error("Please fill in all address fields before proceeding with payment");
+      return;
+    }
+
     setLoading(true);
     try {
       const { data } = await api.post(
@@ -178,58 +202,125 @@ const Cart = () => {
             ))}
             <div className="flex justify-end mt-6">
               <div className="bg-gray-100 p-4 rounded shadow text-right">
-                <h2 className="text-lg font-semibold mb-2 text-left">Shipping Address</h2>
+                <h2 className="text-lg font-semibold mb-2 text-left">Shipping Address <span className="text-red-500">*</span></h2>
+                
+                {/* Address completion progress */}
+                <div className="mb-3">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-sm text-gray-600">Address Completion</span>
+                    <span className="text-sm font-medium text-gray-700">{Math.round(getAddressCompletionPercentage())}%</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div 
+                      className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${getAddressCompletionPercentage()}%` }}
+                    ></div>
+                  </div>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-4 text-left">
-                  <input
-                    type="text"
-                    placeholder="Street"
-                    className="border px-2 py-1 rounded"
-                    value={address.street}
-                    onChange={e => setAddress({ ...address, street: e.target.value })}
-                    required
-                  />
-                  <input
-                    type="text"
-                    placeholder="City"
-                    className="border px-2 py-1 rounded"
-                    value={address.city}
-                    onChange={e => setAddress({ ...address, city: e.target.value })}
-                    required
-                  />
-                  <input
-                    type="text"
-                    placeholder="State"
-                    className="border px-2 py-1 rounded"
-                    value={address.state}
-                    onChange={e => setAddress({ ...address, state: e.target.value })}
-                    required
-                  />
-                  <input
-                    type="text"
-                    placeholder="Zip Code"
-                    className="border px-2 py-1 rounded"
-                    value={address.zip}
-                    onChange={e => setAddress({ ...address, zip: e.target.value })}
-                    required
-                  />
-                  <input
-                    type="text"
-                    placeholder="Country"
-                    className="border px-2 py-1 rounded"
-                    value={address.country}
-                    onChange={e => setAddress({ ...address, country: e.target.value })}
-                    required
-                  />
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Street Address *"
+                      className={`border px-2 py-1 rounded w-full transition-colors ${
+                        address.street.trim() === '' ? 'border-red-300 focus:border-red-500' : 'border-green-300 focus:border-green-500'
+                      }`}
+                      value={address.street}
+                      onChange={e => setAddress({ ...address, street: e.target.value })}
+                      required
+                    />
+                    {address.street.trim() === '' && (
+                      <p className="text-red-500 text-xs mt-1">Street address is required</p>
+                    )}
+                  </div>
+                  
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="City *"
+                      className={`border px-2 py-1 rounded w-full transition-colors ${
+                        address.city.trim() === '' ? 'border-red-300 focus:border-red-500' : 'border-green-300 focus:border-green-500'
+                      }`}
+                      value={address.city}
+                      onChange={e => setAddress({ ...address, city: e.target.value })}
+                      required
+                    />
+                    {address.city.trim() === '' && (
+                      <p className="text-red-500 text-xs mt-1">City is required</p>
+                    )}
+                  </div>
+                  
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="State/Province *"
+                      className={`border px-2 py-1 rounded w-full transition-colors ${
+                        address.state.trim() === '' ? 'border-red-300 focus:border-red-500' : 'border-green-300 focus:border-green-500'
+                      }`}
+                      value={address.state}
+                      onChange={e => setAddress({ ...address, state: e.target.value })}
+                      required
+                    />
+                    {address.state.trim() === '' && (
+                      <p className="text-red-500 text-xs mt-1">State is required</p>
+                    )}
+                  </div>
+                  
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Zip/Postal Code *"
+                      className={`border px-2 py-1 rounded w-full transition-colors ${
+                        address.zip.trim() === '' ? 'border-red-300 focus:border-red-500' : 'border-green-300 focus:border-green-500'
+                      }`}
+                      value={address.zip}
+                      onChange={e => setAddress({ ...address, zip: e.target.value })}
+                      required
+                    />
+                    {address.zip.trim() === '' && (
+                      <p className="text-red-500 text-xs mt-1">Zip code is required</p>
+                    )}
+                  </div>
+                  
+                  <div className="md:col-span-2">
+                    <input
+                      type="text"
+                      placeholder="Country *"
+                      className={`border px-2 py-1 rounded w-full transition-colors ${
+                        address.country.trim() === '' ? 'border-red-300 focus:border-red-500' : 'border-green-300 focus:border-green-500'
+                      }`}
+                      value={address.country}
+                      onChange={e => setAddress({ ...address, country: e.target.value })}
+                      required
+                    />
+                    {address.country.trim() === '' && (
+                      <p className="text-red-500 text-xs mt-1">Country is required</p>
+                    )}
+                  </div>
                 </div>
                 <h2 className="text-xl font-bold mb-2">Total: ₹ {total}</h2>
+                
+                {/* Address validation message */}
+                {!isAddressComplete() ? (
+                  <div className="mb-3 p-2 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded text-sm">
+                    ⚠️ Please fill in all address fields to proceed with payment
+                  </div>
+                ) : (
+                  <div className="mb-3 p-2 bg-green-100 border border-green-400 text-green-700 rounded text-sm">
+                    ✅ Address complete! You can now proceed with payment
+                  </div>
+                )}
+                
                 <button
                   onClick={handlePayment}
-                  disabled={loading}
-                  className={`bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 ${
-                    loading ? "opacity-50 cursor-not-allowed" : ""
+                  disabled={loading || !isAddressComplete()}
+                  className={`px-6 py-2 rounded font-semibold transition-all duration-200 ${
+                    loading || !isAddressComplete()
+                      ? "bg-gray-400 text-gray-600 cursor-not-allowed"
+                      : "bg-green-600 text-white hover:bg-green-700 hover:shadow-lg"
                   }`}
                 >
-                  {loading ? "Processing..." : "Pay Now"}
+                  {loading ? "Processing..." : isAddressComplete() ? "Pay Now" : "Complete Address First"}
                 </button>
               </div>
             </div>
