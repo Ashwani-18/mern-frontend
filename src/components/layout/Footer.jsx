@@ -1,19 +1,13 @@
 import React from 'react'
 
-
 function Footer() {
   return (
-    
     <footer className="bg-gray-800 text-white">
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-<<<<<<< HEAD
             <h3 className="text-xl font-bold mb-4">AishMart</h3>
-=======
-            <h3 className="text-xl font-bold mb-4">ShopNow</h3>
->>>>>>> e10729d50dfc479f605fe8743b2bde91e772e95e
             <p className="text-gray-300">Your one-stop shop for all your needs. Quality products, great prices, and excellent service.</p>
           </div>
 
@@ -53,15 +47,10 @@ function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
-<<<<<<< HEAD
           <p className="text-gray-300">&copy; {new Date().getFullYear()} AishMart. All rights reserved.</p>
-=======
-          <p className="text-gray-300">&copy; {new Date().getFullYear()} ShopNow. All rights reserved.</p>
->>>>>>> e10729d50dfc479f605fe8743b2bde91e772e95e
         </div>
       </div>
     </footer>
-    
   )
 }
 

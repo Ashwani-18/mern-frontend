@@ -13,11 +13,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-<<<<<<< HEAD
-      const res = await axios.post('/api/v1/auth/login', {
-=======
-      const res = await axios.post('http://localhost:8000/api/v1/auth/login', {
->>>>>>> e10729d50dfc479f605fe8743b2bde91e772e95e
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/v1/auth/login`, {
         email,
         password,
       });

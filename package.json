@@ -1,10 +1,6 @@
 {
   "name": "ecommerce",
-<<<<<<< HEAD
-  "proxy": "https://ecommerce-backend-woad-iota.vercel.app",
-=======
   "proxy": "http://localhost:8000",
->>>>>>> e10729d50dfc479f605fe8743b2bde91e772e95e
   "version": "0.1.0",
   "private": true,
   "dependencies": {

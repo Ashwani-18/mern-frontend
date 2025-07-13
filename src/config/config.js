@@ -1,7 +1,7 @@
 // Configuration for different environments
 const config = {
   development: {
-    apiUrl: 'http://localhost:8000',
+    apiUrl: process.env.REACT_APP_API_URL || 'http://localhost:8000',
     razorpayKey: 'rzp_test_dummy'
   },
   production: {
