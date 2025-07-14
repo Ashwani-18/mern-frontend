@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/auth";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import api from "../../utils/api";
 import Spinner from "../Spinner";
 
 export default function AdminRoute() {
   const [ok, setOk] = useState(false);
   const [auth] = useAuth();
+
+  // Redirect to /login if no token
+  if (!auth?.token) return <Navigate to="/login" />;
 
   useEffect(() => {
     const authCheck = async () => {

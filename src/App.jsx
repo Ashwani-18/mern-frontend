@@ -28,6 +28,9 @@ import ProductDetails from "./pages/ProductDetails";
 import Orders from "./pages/users/Orders";
 import AllOrders from "./pages/Admin/AllOrders";
 
+// Add NotFound component
+const NotFound = () => <div style={{textAlign: 'center', marginTop: '3rem', fontSize: '2rem', color: '#e53e3e'}}>Page Not Found</div>;
+
 function App() {
   return (
     <>
@@ -70,6 +73,8 @@ function App() {
             <Route path="manage-user" element={<Users />} />
             <Route path="all-orders" element={<AllOrders />} />
           </Route>
+          {/* Catch-all 404 route */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <ToastContainer position="top-center" autoClose={3000} />
       </BrowserRouter>
