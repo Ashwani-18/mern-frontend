@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../../components/layout/Layout';
 import { useAuth } from '../../context/auth';
-import axios from 'axios';
+import api from '../../utils/api';
 import { toast } from 'react-toastify';
 
 const Profile = () => {
@@ -26,9 +26,7 @@ const Profile = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const { data } = await axios.put('/api/v1/auth/profile', form, {
-        headers: { Authorization: `Bearer ${auth?.token}` },
-      });
+      const { data } = await api.put('/api/v1/auth/profile', form);
       if (data.success) {
         toast.success('Profile updated!');
         setAuth({ ...auth, user: data.user });

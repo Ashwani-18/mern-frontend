@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../utils/api';
+import axios from '../../utils/api';
 import Layout from '../../components/layout/Layout';
 import { useAuth } from '../../context/auth';
 import { getProductImageUrl } from '../../utils/imageUrl';
@@ -10,7 +10,7 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
-      const { data } = await api.get("/api/v1/order/my-orders");
+      const { data } = await axios.get("/api/v1/order/my-orders");
       if (data.success) {
         setOrders(data.orders);
       }
@@ -26,7 +26,7 @@ const Orders = () => {
   const handleCancelOrder = async (orderId) => {
     if (!window.confirm('Are you sure you want to cancel this order?')) return;
     try {
-      const { data } = await api.patch(`/api/v1/order/cancel/${orderId}`, {});
+      const { data } = await axios.patch(`/api/v1/order/cancel/${orderId}`, {});
       if (data.success) {
         setOrders((prev) => prev.map(order => order._id === orderId ? { ...order, status: 'cancelled' } : order));
       } else {

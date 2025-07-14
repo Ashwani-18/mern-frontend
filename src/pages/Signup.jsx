@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {toast } from 'react-toastify'
-import api from '../utils/api'
-import {Navigate, useNavigate} from 'react-router-dom'
+import axios from '../utils/api'
+import {Navigate, useNavigate, Link} from 'react-router-dom'
 import Layout from '../components/layout/Layout';
 
 const Signup = () => {
@@ -16,7 +16,7 @@ const navigate = useNavigate()
 const handleSubmit = async(e) => {
   e.preventDefault();
   try {
-    const res = await api.post('/api/v1/auth/signup',{name, email, password, verifyPassword, answer});
+    const res = await axios.post('/api/v1/auth/signup',{name, email, password, verifyPassword, answer});
     if(res.data.success){
       toast.success(res.data.message)
       navigate('/login')
@@ -42,12 +42,12 @@ const handleSubmit = async(e) => {
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               Already have an account?{' '}
-              <a
-                href="/login"
+              <Link
+                to="/login"
                 className="font-medium text-blue-600 hover:text-blue-500 transition-colors duration-200"
               >
                 Sign in
-              </a>
+              </Link>
             </p>
           </div>
           <form onSubmit={handleSubmit} className="mt-8 space-y-6" action="#" method="POST">

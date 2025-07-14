@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../../components/layout/Layout';
 import AdminMenu from '../../components/AdminMenu';
-import axios from 'axios';
+import axios from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/auth';
@@ -62,7 +62,6 @@ function CreateProducts() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${auth.token}`, // ✅ Token used here
           },
         }
       );

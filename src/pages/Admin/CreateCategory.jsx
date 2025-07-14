@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../components/layout/Layout";
 import AdminMenu from "../../components/AdminMenu";
 import { toast } from "react-toastify";
-import axios from "axios";
+import axios from "../../utils/api";
 import CategoryForm from "../../components/form/CategoryForm";
 import { useAuth } from "../../context/auth";
 
@@ -33,8 +33,7 @@ const CreateCategory = () => {
       if (selected) {
         const { data } = await axios.put(
           `/api/v1/category/update-category/${selected._id}`,
-          { name },
-          { headers: { Authorization: `Bearer ${auth?.token}` } }
+          { name }
         );
         if (data.success) {
           toast.success("Category updated");
@@ -45,8 +44,7 @@ const CreateCategory = () => {
       } else {
         const { data } = await axios.post(
           "/api/v1/category/create-category",
-          { name },
-          { headers: { Authorization: `Bearer ${auth?.token}` } }
+          { name }
         );
         if (data.success) {
           toast.success("Category created");
@@ -63,9 +61,7 @@ const CreateCategory = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this category?")) return;
     try {
-      const { data } = await axios.delete(`/api/v1/category/delete-category/${id}`, {
-        headers: { Authorization: `Bearer ${auth?.token}` },
-      });
+      const { data } = await axios.delete(`/api/v1/category/delete-category/${id}`);
       if (data.success) {
         toast.success("Category deleted");
         getAllCategories();

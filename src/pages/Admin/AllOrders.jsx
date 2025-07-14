@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../utils/api';
 import Layout from '../../components/layout/Layout';
 import { useAuth } from '../../context/auth';
 
@@ -18,9 +18,7 @@ const AllOrders = () => {
   const fetchAllOrders = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get('/api/v1/order/all', {
-        headers: { Authorization: `Bearer ${auth.token}` },
-      });
+      const { data } = await axios.get('/api/v1/order/all');
       if (data.success) setOrders(data.orders);
     } catch (err) {
       console.error('❌ Error fetching all orders:', err);
@@ -37,8 +35,7 @@ const AllOrders = () => {
     try {
       const { data } = await axios.patch(
         `/api/v1/order/status/${orderId}`,
-        { status: newStatus },
-        { headers: { Authorization: `Bearer ${auth.token}` } }
+        { status: newStatus }
       );
       if (data.success) {
         setOrders((prev) =>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import api from '../utils/api';
+import axios from '../utils/api';
 import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
@@ -12,7 +12,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("/api/v1/auth/forget", {
+      const res = await axios.post("/api/v1/auth/forget", {
         email,
         answer,
         newPassword,

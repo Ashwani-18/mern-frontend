@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../utils/api";
+import axios from "../utils/api";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../context/auth";
@@ -11,7 +11,7 @@ const TopProducts = () => {
 
   const getProducts = async () => {
     try {
-      const { data } = await api.get("/api/v1/product/get-4-products");
+      const { data } = await axios.get("/api/v1/product/get-4-products");
       if (data?.success) {
         setProducts(data.products);
       }
@@ -22,7 +22,7 @@ const TopProducts = () => {
 
   const handleAddToCart = async (productId) => {
     try {
-      const { data } = await api.post(
+      const { data } = await axios.post(
         '/api/v1/cart/add',
         { productId, quantity: 1 }
       );

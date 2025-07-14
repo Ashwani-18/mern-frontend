@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../../components/layout/Layout';
 import AdminMenu from '../../components/AdminMenu';
-import api from '../../utils/api';
+import axios from '../../utils/api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/auth';
@@ -25,7 +25,7 @@ function UpdateProduct() {
   // ✅ Fetch single product
   const getSingleProduct = async () => {
     try {
-      const { data } = await api.get(`/api/v1/product/get-products/${params.slug}`);
+      const { data } = await axios.get(`/api/v1/product/get-products/${params.slug}`);
       const p = data.product;
       setProductId(p._id);
       setName(p.name);
@@ -47,7 +47,7 @@ function UpdateProduct() {
   // ✅ Fetch all categories
   const getAllCategories = async () => {
     try {
-      const { data } = await api.get("/api/v1/category/get-category");
+      const { data } = await axios.get("/api/v1/category/get-category");
       if (data?.success) {
         setCategories(data.category);
       }
@@ -80,7 +80,7 @@ function UpdateProduct() {
       productData.append("category", category);
       if (photo) productData.append("photo", photo);
 
-      const { data } = await api.put(
+      const { data } = await axios.put(
         `/api/v1/product/update-product/${productId}`,
         productData,
         {

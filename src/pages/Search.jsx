@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../context/auth";
 import { useCart } from "../context/cart";
-import api from "../utils/api";
+import axios from "../utils/api";
 import { getProductImageUrl } from "../utils/imageUrl";
 
 const Search = () => {
@@ -22,7 +22,7 @@ const Search = () => {
         return;
       }
 
-      const res = await api.post(
+      const res = await axios.post(
         "/api/v1/cart/add",
         { productId }
       );

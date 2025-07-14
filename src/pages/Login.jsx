@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import api from '../utils/api';
-import { useNavigate } from 'react-router-dom';
+import axios from '../utils/api';
+import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/auth';
 
@@ -13,7 +13,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post('/api/v1/auth/login', {
+      const res = await axios.post('/api/v1/auth/login', {
         email,
         password,
       });
@@ -96,9 +96,9 @@ const Login = () => {
 
         <p className="mt-4 text-center text-sm text-gray-600">
           Don't have an account?{' '}
-          <a href="/signup" className="text-blue-600 hover:underline">
+          <Link to="/signup" className="text-blue-600 hover:underline">
             Sign up
-          </a>
+          </Link>
         </p>
       </div>
     </div>
