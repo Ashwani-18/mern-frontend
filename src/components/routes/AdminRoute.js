@@ -8,9 +8,6 @@ export default function AdminRoute() {
   const [ok, setOk] = useState(false);
   const [auth] = useAuth();
 
-  // Redirect to /login if no token
-  if (!auth?.token) return <Navigate to="/login" />;
-
   useEffect(() => {
     const authCheck = async () => {
       try {
@@ -21,15 +18,12 @@ export default function AdminRoute() {
           setOk(false);
         }
       } catch (error) {
-        console.log("AdminRoute Error:", error.response?.data || error.message);
         setOk(false);
       }
     };
-
-    if (auth?.token) {
-      authCheck();
-    }
+    if (auth?.token) authCheck();
   }, [auth?.token]);
 
+  if (!auth?.token) return <Navigate to="/login" />;
   return ok ? <Outlet /> : <Spinner />;
 }
