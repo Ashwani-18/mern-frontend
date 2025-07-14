@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../utils/api";
+import api from "../utils/api";
 import Layout from "../components/layout/Layout";
 import { useAuth } from "../context/auth";
 import { toast } from "react-toastify";
@@ -11,7 +11,7 @@ function AllProducts() {
   const [auth] = useAuth(); // token from context
   const handleAddToCart = async (productId) => {
     try {
-      const { data } = await axios.post(
+      const { data } = await api.post(
         '/api/v1/cart/add',
         { productId, quantity: 1 }
       );
@@ -28,7 +28,7 @@ function AllProducts() {
 
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get("/api/v1/product/get-products");
+      const { data } = await api.get("/api/v1/product/get-products");
       setProducts(data.products);
     } catch (error) {
       console.error("Error fetching products:", error);

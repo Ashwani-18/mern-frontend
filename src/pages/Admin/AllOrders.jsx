@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../../utils/api';
+import api from '../../utils/api';
 import Layout from '../../components/layout/Layout';
 import { useAuth } from '../../context/auth';
 
@@ -18,7 +18,7 @@ const AllOrders = () => {
   const fetchAllOrders = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get('/api/v1/order/all');
+      const { data } = await api.get('/api/v1/order/all');
       if (data.success) setOrders(data.orders);
     } catch (err) {
       console.error('❌ Error fetching all orders:', err);
@@ -33,7 +33,7 @@ const AllOrders = () => {
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
-      const { data } = await axios.patch(
+      const { data } = await api.patch(
         `/api/v1/order/status/${orderId}`,
         { status: newStatus }
       );

@@ -159,7 +159,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../components/layout/Layout";
 import Banner from "../components/Banner";
 import Banner2 from "../components/Banner2"
-import axios from "../utils/api";
+import api, { testApiConnection } from "../utils/api";
 import Banner3 from "../components/Banner3"
 import { useNavigate } from "react-router-dom";
 
@@ -169,7 +169,7 @@ const Home = () => {
 
   const getCategories = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-category");
+      const { data } = await api.get("/api/v1/category/get-category");
       if (data.success) {
         setCategories(data.category);
       }
@@ -180,6 +180,8 @@ const Home = () => {
 
   useEffect(() => {
     getCategories();
+    // Test API connection on component mount
+    testApiConnection();
   }, []);
 
   return (

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import axios from '../utils/api';
+import api from '../utils/api';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/auth';
+import Layout from '../components/layout/Layout';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -13,7 +14,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('/api/v1/auth/login', {
+      const res = await api.post('/api/v1/auth/login', {
         email,
         password,
       });
@@ -36,72 +37,112 @@ const Login = () => {
     }
   };
 
+  const handleSignupClick = () => {
+    console.log('Signup link clicked');
+    toast.info('Navigating to signup page...');
+    navigate('/signup');
+  };
+
+  const handleForgotPasswordClick = () => {
+    console.log('Forgot password link clicked');
+    toast.info('Navigating to forgot password page...');
+    navigate('/forget');
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-6">Login to Your Account</h2>
-
-        <form onSubmit={handleSubmit} className="space-y-5">
+    <Layout>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg">
           <div>
-            <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-700">
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              placeholder="you@example.com"
-            />
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+              Sign in to your account
+            </h2>
+            <p className="mt-2 text-center text-sm text-gray-600">
+              Don't have an account?{' '}
+              <button
+                onClick={handleSignupClick}
+                className="font-medium text-blue-600 hover:text-blue-500 hover:underline transition-all duration-200 cursor-pointer px-2 py-1 rounded hover:bg-blue-50"
+              >
+                Sign up
+              </button>
+            </p>
           </div>
 
-          <div>
-            <label htmlFor="password" className="block mb-1 text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              placeholder="Enter your password"
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  Email Address
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm transition-colors duration-200"
+                  placeholder="Enter your email"
+                />
+              </div>
 
-          <div className="flex items-center justify-between text-sm">
-            <label className="flex items-center gap-2">
-              <input type="checkbox" className="form-checkbox" />
-              Remember me
-            </label>
-            <button
-              type="button"
-              onClick={() => navigate('/forget')}
-              className="text-blue-600 hover:underline"
-            >
-              Forgot password?
-            </button>
-          </div>
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm transition-colors duration-200"
+                  placeholder="Enter your password"
+                />
+              </div>
+            </div>
 
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200"
-          >
-            Sign In
-          </button>
-        </form>
+            <div className="flex items-center justify-between text-sm">
+              <label className="flex items-center gap-2">
+                <input type="checkbox" className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
+                Remember me
+              </label>
+              <button
+                type="button"
+                onClick={handleForgotPasswordClick}
+                className="text-blue-600 hover:text-blue-500 transition-colors duration-200"
+              >
+                Forgot password?
+              </button>
+            </div>
 
-        <p className="mt-4 text-center text-sm text-gray-600">
-          Don't have an account?{' '}
-          <Link to="/signup" className="text-blue-600 hover:underline">
-            Sign up
-          </Link>
-        </p>
+            <div>
+              <button
+                type="submit"
+                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 shadow-sm"
+              >
+                Sign In
+              </button>
+            </div>
+
+            {/* Test Navigation Button */}
+            <div className="text-center">
+              <button
+                type="button"
+                onClick={() => {
+                  console.log('Test navigation to signup');
+                  navigate('/signup');
+                }}
+                className="text-sm text-gray-500 hover:text-blue-600 underline"
+              >
+                Test: Go to Signup Page
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

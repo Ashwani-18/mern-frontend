@@ -2,7 +2,7 @@ import React from 'react'
 import AdminMenu from '../../components/AdminMenu'
 import Layout from '../../components/layout/Layout'
 import { useEffect, useState } from 'react';
-import axios from '../../utils/api';
+import api from '../../utils/api';
 import { useAuth } from '../../context/auth';
 
 function Users() {
@@ -12,7 +12,7 @@ function Users() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const { data } = await axios.get('/api/v1/auth/all-users');
+        const { data } = await api.get('/api/v1/auth/all-users');
         if (data.success) setUsers(data.users);
       } catch (err) {
         // Optionally handle error

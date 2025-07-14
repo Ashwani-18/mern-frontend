@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../components/layout/Layout";
 import AdminMenu from "../../components/AdminMenu";
 import { toast } from "react-toastify";
-import axios from "../../utils/api";
+import api from "../../utils/api";
 import CategoryForm from "../../components/form/CategoryForm";
 import { useAuth } from "../../context/auth";
 
@@ -15,7 +15,7 @@ const CreateCategory = () => {
   // Get all categories
   const getAllCategories = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-category");
+      const { data } = await api.get("/api/v1/category/get-category");
       if (data.success) setCategories(data.category);
     } catch (error) {
       toast.error("Error fetching categories");
@@ -31,7 +31,7 @@ const CreateCategory = () => {
     e.preventDefault();
     try {
       if (selected) {
-        const { data } = await axios.put(
+        const { data } = await api.put(
           `/api/v1/category/update-category/${selected._id}`,
           { name }
         );
@@ -42,7 +42,7 @@ const CreateCategory = () => {
           getAllCategories();
         }
       } else {
-        const { data } = await axios.post(
+        const { data } = await api.post(
           "/api/v1/category/create-category",
           { name }
         );
@@ -61,7 +61,7 @@ const CreateCategory = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this category?")) return;
     try {
-      const { data } = await axios.delete(`/api/v1/category/delete-category/${id}`);
+      const { data } = await api.delete(`/api/v1/category/delete-category/${id}`);
       if (data.success) {
         toast.success("Category deleted");
         getAllCategories();

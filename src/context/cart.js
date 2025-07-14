@@ -1,6 +1,6 @@
 // context/CartContext.jsx
 import { createContext, useContext, useEffect, useState } from 'react';
-import axios from '../utils/api';
+import api from '../utils/api';
 
 const CartContext = createContext();
 
@@ -9,7 +9,7 @@ export const CartProvider = ({ children }) => {
 
   const fetchCart = async () => {
     try {
-      const { data } = await axios.get('/api/v1/cart/user-cart'); // Backend returns user-specific cart
+      const { data } = await api.get('/api/v1/cart/user-cart'); // Backend returns user-specific cart
       if (data.success) {
         setCart(data.cart);
       }

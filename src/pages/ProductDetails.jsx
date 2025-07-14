@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "../utils/api";
+import api from "../utils/api";
 import Layout from "../components/layout/Layout";
 import { getProductImageUrl } from "../utils/imageUrl";
 
@@ -11,7 +11,7 @@ const ProductDetails = () => {
 
   const getProduct = async () => {
     try {
-      const { data } = await axios.get(`/api/v1/product/get-products/${Params.slug}`);
+      const { data } = await api.get(`/api/v1/product/get-products/${Params.slug}`);
       setProduct(data?.product);
     } catch (error) {
       console.log("Error fetching product", error);

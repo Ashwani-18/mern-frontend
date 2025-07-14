@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSearch } from "../context/Search";
-import axios from "../utils/api";
+import api from "../utils/api";
 
 const SearchInput = () => {
   const [value, setValue] = useState("");
@@ -12,7 +12,7 @@ const SearchInput = () => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.get(`/api/v1/product/search/${value}`);
+      const { data } = await api.get(`/api/v1/product/search/${value}`);
       setSearchState({
         keyword: value,
         results: data.products || [],
