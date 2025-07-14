@@ -126,19 +126,7 @@ const Login = () => {
               </button>
             </div>
 
-            {/* Test Navigation Button */}
-            <div className="text-center">
-              <button
-                type="button"
-                onClick={() => {
-                  console.log('Test navigation to signup');
-                  navigate('/signup');
-                }}
-                className="text-sm text-gray-500 hover:text-blue-600 underline"
-              >
-                Test: Go to Signup Page
-              </button>
-            </div>
+
           </form>
         </div>
       </div>
