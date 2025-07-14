@@ -1,51 +1,48 @@
-// API configuration utility
 import axios from 'axios';
 
-// Explicitly set the backend URL for deployment
 const API_BASE_URL = 'https://mern-backend-4dux.onrender.com';
 
-// Create a new axios instance with explicit configuration
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000, // 10 second timeout
+  timeout: 10000,
 });
 
-// Add request interceptor to include auth token
+// ✅ Add token only if it exists and is valid
 api.interceptors.request.use(
   (config) => {
-    // Debug: Log the full URL being requested
     console.log('Making request to:', config.baseURL + config.url);
-    
+
     const auth = JSON.parse(localStorage.getItem('auth') || '{}');
-    if (auth.token) {
+    if (auth?.token && auth?.token !== 'undefined') {
       config.headers.Authorization = `Bearer ${auth.token}`;
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Add response interceptor for error handling
+// ✅ Intercept response, but only redirect on protected pages
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     console.error('API Error:', error.response?.status, error.response?.data);
-    
-    if (error.response?.status === 401) {
-      // Auto-logout on token expiry
+
+    if (
+      error.response?.status === 401 &&
+      window.location.pathname.startsWith('/dashboard')
+    ) {
       localStorage.removeItem('auth');
       window.location.href = '/login';
     }
+
     return Promise.reject(error);
   }
 );
 
-// Test function to verify API configuration
+// Optional: test connection
 export const testApiConnection = async () => {
   try {
     console.log('Testing API connection to:', API_BASE_URL);
@@ -58,4 +55,4 @@ export const testApiConnection = async () => {
   }
 };
 
-export default api; 
+export default api;
