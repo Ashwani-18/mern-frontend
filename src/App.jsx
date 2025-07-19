@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Product from "./pages/Product";
 import Contact from "./pages/Contact";
@@ -28,10 +28,17 @@ import ProductDetails from "./pages/ProductDetails";
 import Orders from "./pages/users/Orders";
 import AllOrders from "./pages/Admin/AllOrders";
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 // Add NotFound component
 const NotFound = () => <div style={{textAlign: 'center', marginTop: '3rem', fontSize: '2rem', color: '#e53e3e'}}>Page Not Found</div>;
 
 function App() {
+  useEffect(() => {
+    AOS.init({ duration: 800, once: true });
+  }, []);
+
   return (
     <>
       <BrowserRouter>

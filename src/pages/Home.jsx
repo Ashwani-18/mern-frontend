@@ -186,9 +186,9 @@ const Home = () => {
 
   return (
     <Layout>
-      <Banner />
+      <Banner data-aos="fade-down" />
 
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-6" data-aos="fade-up">
         <h2 className="text-2xl font-bold mb-4 text-center">Browse by Category</h2>
         {categories?.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -197,6 +197,7 @@ const Home = () => {
                 key={cat._id}
                 onClick={() => navigate(`/category/${cat._id}`)}
                 className="cursor-pointer bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 group"
+                data-aos="zoom-in"
               >
                 <div className="flex items-center justify-center mb-4">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -222,8 +223,8 @@ const Home = () => {
           <p className="text-center text-gray-500">No categories found</p>
         )}
       </div>
-      <Banner2/>
-      <Banner3/>
+      <Banner2 data-aos="fade-left" />
+      <Banner3 data-aos="fade-up" />
     </Layout>
   );
 };
