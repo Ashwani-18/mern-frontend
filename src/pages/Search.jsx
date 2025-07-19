@@ -41,7 +41,7 @@ const Search = () => {
 
   return (
     <Layout title={"Search Results"}>
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8" data-aos="fade-up">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-2">Search Results</h1>
           <h6 className="text-gray-600 text-lg">

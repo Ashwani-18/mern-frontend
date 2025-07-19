@@ -44,7 +44,7 @@ function AllProducts() {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8" data-aos="fade-up">
         <h2 className="text-2xl font-bold mb-6 text-center">All Products</h2>
         {loading ? (
           <p className="text-center text-gray-600">Loading products...</p>

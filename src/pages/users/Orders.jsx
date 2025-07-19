@@ -40,7 +40,7 @@ const Orders = () => {
 
   return (
     <Layout title="My Orders">
-      <div className="max-w-4xl mx-auto py-8 px-4">
+      <div className="max-w-4xl mx-auto py-8 px-4" data-aos="fade-up">
         <h1 className="text-2xl font-bold mb-6">My Orders</h1>
         {orders.length === 0 ? (
           <p>No orders found.</p>

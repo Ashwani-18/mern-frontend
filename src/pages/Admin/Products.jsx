@@ -27,7 +27,7 @@ const Products = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-6" data-aos="fade-up">
         <div className="flex justify-center mb-4">
           <AdminMenu />
         </div>

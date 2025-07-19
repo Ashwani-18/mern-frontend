@@ -54,7 +54,7 @@ const AllOrders = () => {
 
   return (
     <Layout title="All Orders (Admin)">
-      <div className="max-w-6xl mx-auto py-8 px-4">
+      <div className="max-w-6xl mx-auto py-8 px-4" data-aos="fade-up">
         <h1 className="text-2xl font-bold mb-6">All Orders</h1>
         <div className="mb-4 flex items-center gap-2">
           <label htmlFor="statusFilter" className="font-medium">Filter by status:</label>

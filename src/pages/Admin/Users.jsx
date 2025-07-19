@@ -29,7 +29,7 @@ function Users() {
 
   return (
     <Layout>
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid m-3 p-3" data-aos="fade-up">
         <div className="d-flex justify-content-center">
           <AdminMenu />
         </div>

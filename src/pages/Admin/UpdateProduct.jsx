@@ -112,7 +112,7 @@ function UpdateProduct() {
             <AdminMenu />
           </div>
         </div>
-        <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-2xl p-6 border border-gray-100">
+        <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-2xl p-6 border border-gray-100" data-aos="fade-up">
           <h1 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">
             Update Product
           </h1>

@@ -44,7 +44,7 @@ const Profile = () => {
 
   return (
     <Layout title="Profile">
-      <div className="max-w-xl mx-auto py-10 px-4">
+      <div className="max-w-xl mx-auto py-10 px-4" data-aos="fade-up">
         <div className="flex flex-col items-center">
           <div className="bg-blue-200 rounded-full w-24 h-24 flex items-center justify-center mb-4">
             <svg className="h-16 w-16 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

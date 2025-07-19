@@ -24,7 +24,7 @@ import { Link } from 'react-router-dom'
 function Dashboard() {
   return (
     <Layout>
-      <div className="max-w-2xl mx-auto mt-10 px-4">
+      <div className="max-w-4xl mx-auto py-8 px-4" data-aos="fade-up">
         <h1 className="text-4xl font-extrabold text-center text-blue-700 mb-10">User Dashboard</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           {/* Profile Card */}

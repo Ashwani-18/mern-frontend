@@ -158,7 +158,7 @@ const Cart = () => {
 
   return (
     <Layout title="Your Cart">
-      <div className="max-w-4xl mx-auto py-8 px-4">
+      <div className="max-w-4xl mx-auto py-8 px-4" data-aos="fade-up">
         <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
         {cart.length === 0 ? (
           <p>No items in cart.</p>

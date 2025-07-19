@@ -24,7 +24,7 @@ const ProductDetails = () => {
 
   return (
     <Layout title={product?.name || "Product Details"}>
-      <div className="p-4 max-w-4xl mx-auto">
+      <div className="p-4 max-w-4xl mx-auto" data-aos="fade-up">
         {product ? (
           <div className="flex flex-col md:flex-row gap-4">
             <img

@@ -7,7 +7,7 @@ function AdminDashboard() {
   const [auth] = useAuth();
   return (
     <Layout>
-      <div className="container-fluid mt-0 p-3">
+      <div className="max-w-4xl mx-auto py-8 px-4" data-aos="fade-up">
         {/* AdminMenu centered */}
         <div className="d-flex justify-content-center">
           <AdminMenu />

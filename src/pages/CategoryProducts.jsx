@@ -45,7 +45,7 @@ const CategoryProducts = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-6" data-aos="fade-up">
         <h2 className="text-xl font-bold mb-4 text-center">Products in Category</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {products.map((p) => (
